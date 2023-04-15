@@ -30,7 +30,7 @@ def save_password():
         }
     }
     if len(website) == 0 or len(password) == 0:
-        messagebox.showinfo(title="warning", message="website or password cannot be empty")
+        messagebox.showinfo(title="Error", message="website or password cannot be empty")
     else:
         try:
             with open("passlist.json", "r") as passlist:
@@ -57,14 +57,16 @@ def find_password():
         with open("passlist.json", "r") as passlist:
             # open passlist json file
             data = json.load(passlist)
-            if website in data.keys():
-                retrieved_username = data[website]["email"]
-                retrieved_password = data[website]["password"]
-                messagebox.showinfo(title=f"{website} data", message=f"Username/Email:    {retrieved_username}\n Password:    {retrieved_password}")
-            else:
-                messagebox.showinfo(title="warning", message="No details for the website exist")
     except FileNotFoundError:
-        messagebox.showinfo(title="warning", message="No Data file found")
+        messagebox.showinfo(title="Error", message="No Data file found")
+    else:
+        if website in data.keys():
+            retrieved_username = data[website]["email"]
+            retrieved_password = data[website]["password"]
+            messagebox.showinfo(title=f"{website} data", message=f"Username/Email:    {retrieved_username}\n Password:    {retrieved_password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for the {website} exist")
+
 
 
 # ---------------------------- UI SETUP ------------------------------- #
